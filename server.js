@@ -3,9 +3,9 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
 var mongoose = require('mongoose');
+var config = require('./_config');
 const app = express();
-const port = 3000;
-mongoose.connect('mongodb://localhost:27017/zappy');
+mongoose.connect(config.mongoURI[app.settings.env]);
 mongoose.connection.once('open',() => {
     console.log('connected to mongo')
 });
@@ -27,6 +27,7 @@ app.use('/slack', slackCtrl);
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
-app.set('port', port);
+app.set('port', config.port);
 const server = http.createServer(app);
-server.listen(port, () => console.log(`Running on localhost:${port}`));
+server.listen(config.port, () => console.log(`Running on localhost:${config.port}`));
+module.exports = app;

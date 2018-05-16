@@ -6,4 +6,4 @@ var tweetSchema = new Schema({
     id_str:{type: String},
     username:{type:String}
 })
-module.exports= Tweet = mongoose.model('Tweet',tweetSchema);
+module.exports= Tweet = mongoose.model('tweets',tweetSchema);
